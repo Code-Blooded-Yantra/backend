@@ -2,25 +2,21 @@ import mongoose, { Document, Schema, Types } from "mongoose";
 
 export interface UserSchema extends Document {
   _id: Types.ObjectId;
-  googleId: string;
   email: string;
   name: string;
-  opportunities: Types.ObjectId[];
+  keywords: Array<string>;
 }
 
 const userSchema = new Schema<UserSchema>(
   {
-    googleId: {
+    name: {
       type: String,
     },
     email: {
       type: String,
     },
-    name: {
-      type: String,
-      required: true,
-      min: 3,
-      max: 20,
+    keywords: {
+      type: [String],
     },
   },
   { timestamps: true }

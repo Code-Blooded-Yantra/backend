@@ -10,10 +10,13 @@ interface MongooseConnectOptions extends mongoose.ConnectOptions {
 
 export const initDB = () => {
   mongoose
-    .connect(process.env.MONGO_URI, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    } as MongooseConnectOptions)
+    .connect(
+      process.env.MONGO_URI as string,
+      {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+      } as MongooseConnectOptions
+    )
     .then(() => {
       console.log("Connected to MongoDB");
     })
