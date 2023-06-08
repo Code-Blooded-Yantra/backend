@@ -149,36 +149,35 @@ def get_nearby_places(keywords, location):
     return places
 
 
+import json
+
+# ... (rest of the code remains the same)
+
 # Get user input for the elderly person's input
 input_text = args[1]
-print("Input text:", input_text)
 
 # Perform summarization
 summary = summarize_text(input_text)
-print("Summary:", summary)
 
 # Extract keywords from the summary
 summary_keywords = preprocess_text(summary).split()
-print("Keywords:", summary_keywords)
 
 # Get relevant articles based on keywords
 latest_articles = get_latest_articles(summary_keywords)
-
-# Print the articles
-for article in latest_articles:
-    print("Title:", article["title"])
-    print("Link:", article["link"])
-    print("Snippet:", article["snippet"])
-    print()
 
 # Get nearby places based on keywords and location
 location = "mumbai"  # Replace with the desired location
 nearby_places = get_nearby_places(summary_keywords, location)
 
-# Print the nearby places
-for place in nearby_places:
-    print("Name:", place["name"])
-    print("Address:", place["address"])
-    print("Rating:", place["rating"])
-    print("Types:", place["types"])
-    print()
+# Create a JSON object with all the results
+result = {
+    "input_text": input_text,
+    "summary": summary,
+    "keywords": summary_keywords,
+    "latest_articles": latest_articles,
+    "nearby_places": nearby_places,
+}
+
+# Convert the result to a JSON string and print it
+result_json = json.dumps(result, indent=2)
+print(result_json)
