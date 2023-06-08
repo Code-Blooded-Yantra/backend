@@ -30,13 +30,22 @@ userRouter.post("/summarize", async (req, res) => {
 userRouter.post("/", async (req, res) => {
   try {
     const user = new User({
-      ...req.body.user,
+      email: req.body.email,
+      keywords: req.body.keywords,
     });
     const createdUser = await user.save();
     return res.json(createdUser);
   } catch (err) {
     return res.status(500).json({ msg: "Error" });
   }
+});
+
+userRouter.get("/matches", async (req, res) => {
+  User.find({
+    _id: { $ne: req.body.id },
+    keywords: { $in: req.body.keywords },
+    $and: [{ keywords: { $all: req.body.keywords } }],
+  });
 });
 
 export default userRouter;
