@@ -1,4 +1,4 @@
-API_KEY = "AIzaSyDJuQhr_kZWartlIic-qV4LMB4bNoASzA4"
+API_KEY = "AIzaSyDZ_Cudb4mj0W8eWKB7eWpOwpBXD9aAeqM"
 SEARCH_ENGINE_ID = "e77aadef9bb7b49c1"
 
 import spacy
@@ -129,7 +129,7 @@ def get_geocode(location):
     return None
 
 
-def get_nearby_places(keywords, location):
+def get_nearby_places(keywords, location, limit=10):
     places = []
     geocode = get_geocode(location)
     if geocode:
@@ -146,7 +146,9 @@ def get_nearby_places(keywords, location):
                             "types": result["types"],
                         }
                         places.append(place)
-    return places
+                        if len(places) >= limit:
+                            return places
+    return places[:limit]
 
 
 import json

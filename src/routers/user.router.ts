@@ -12,6 +12,7 @@ userRouter.post("/summarize", async (req, res) => {
 
   pythonProcess.stdout.on("data", (data: any) => {
     const summary = data.toString().trim();
+    console.log(summary);
     console.log(JSON.parse(summary));
 
     return res.json(summary);
